@@ -2,8 +2,6 @@ import axios from "axios";
 
 export async function POST(req) {
   const { phone, amount } = await req.json();
-
-  // Step 1: Get Access Token
   const auth = Buffer.from(
     process.env.MPESA_CONSUMER_KEY + ":" + process.env.MPESA_CONSUMER_SECRET
   ).toString("base64");
@@ -19,7 +17,6 @@ export async function POST(req) {
 
   const access_token = tokenRes.data.access_token;
 
-  // Step 2: STK Push
   const stkRes = await axios.post(
     "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
     {
